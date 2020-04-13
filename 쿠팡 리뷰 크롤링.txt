@@ -1,0 +1,20 @@
+from selenium import webdriver
+from bs4 import BeautifulSoup
+
+import time
+driver = webdriver.Chrome("./chromedriver.exe")
+driver.get("https://www.coupang.com/vp/products/323907063?itemId=1037089428&vendorItemId=5491454088&q=%EC%9D%B4%EB%82%98%ED%94%84+%EB%8B%A4%EB%A6%AC%EB%AF%B8&itemsCount=36&searchId=9e5d95974ba24a6cad5d5660125d3ca0&rank=2&isAddedCart=")
+time.sleep(5) 
+a = driver.find_element_by_xpath("//*[@id='btfTab']/ul[1]/li[2]")
+a.click()
+time.sleep(5) 
+html = driver.page_source
+soup = BeautifulSoup(html,"html.parser")
+
+
+res = soup.find_all(class_="sdp-review__article__list__headline")
+
+
+
+for n in res:
+    print(n.get_text()) 
