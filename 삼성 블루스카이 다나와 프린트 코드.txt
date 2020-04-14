@@ -1,0 +1,25 @@
+from selenium import webdriver
+from bs4 import BeautifulSoup
+
+import time
+driver = webdriver.Chrome("./chromedriver.exe")
+driver.get("http://prod.danawa.com/info/?pcode=7281976&keyword=%EA%B3%B5%EA%B8%B0%EC%B2%AD%EC%A0%95%EA%B8%B0&cate=102738#bookmark_cm_opinion")
+time.sleep(5) 
+
+a = driver.find_element_by_xpath("//*[@id='bookmark_cm_opinion_item']")
+a.click()
+
+time.sleep(5) 
+
+html = driver.page_source
+soup = BeautifulSoup(html,"html.parser")
+res = soup.find_all(class_="rvw_list")
+
+#encoding="utf-8"
+
+#f=open("ac.txt","w",encoding="utf-8")
+for n in res:
+    print(n.get_text())
+
+    #f.write(n.get_text())
+    #f.close()
