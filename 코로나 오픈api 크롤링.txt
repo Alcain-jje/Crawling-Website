@@ -1,0 +1,41 @@
+import urllib.request as ul
+import xmltodict
+import json
+import sys
+import io
+
+sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding = 'utf-8')
+sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding = 'utf-8')
+#아톰에디터 한글사용을 위한 구문
+
+url = "http://openapi.data.go.kr/openapi/service/rest/Covid19/getCovid19SidoInfStateJson?serviceKey=UuUMXtlc4kVV%2BLPRUKr%2BjyE0HDJPisDOKw6pef7HI19Y3RURZYsXeSXsQTZfzGKr7SrINQEUzHDi00UWWFPpzQ%3D%3D&pageNo=1&numOfRows=10&startCreateDt=20200310&endCreateDt=20200315&"
+#데이터를 받을 url
+ 
+request = ul.Request(url)
+#url의 데이터를 요청함
+
+response = ul.urlopen(request)
+#요청받은 데이터를 열어줌
+
+rescode = response.getcode()
+
+if(rescode == 200):
+    responseData = response.read()
+    #요청받은 데이터를 읽음
+
+    #print(responseData)
+    rD = xmltodict.parse(responseData)
+    #XML형식의 데이터를 dict형식으로 변환시켜줌
+    jsonString=json.dumps(rD['response']['body'], ensure_ascii=False) #dict 형식의 데이터를 json형식으로 변환
+
+    jsonObj=json.loads(jsonString) #json형식의 데이터를 dict 형식으로 변환
+    
+
+    print(len(jsonObj['items']['item'])) #길이값을 구해서 for문에 적용
+    ab = 15
+
+    f=open("zz.csv","a")
+    for item in jsonObj['items']['item']:
+        #print(item['gubun'])
+        if (item["gubun"] == '대구'):  #지역명에 따라 누적자 수 출력되게 설정.
+            print(item['defCnt'])
