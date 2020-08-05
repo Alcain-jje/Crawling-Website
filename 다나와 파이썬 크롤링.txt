@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 import time
 driver = webdriver.Chrome("./chromedriver.exe")
 driver.get("http://prod.danawa.com/info/?pcode=5904379&keyword=%EA%B3%B5%EA%B8%B0%EC%B2%AD%EC%A0%95%EA%B8%B0&cate=14233689#bookmark_cm_opinion")
-#url은 각각 url 따라 다르게 설정
+#url은 각각 url 따라 다르게 설정.
 time.sleep(5) 
 
 a = driver.find_element_by_xpath("//*[@id='bookmark_cm_opinion_item']") 
@@ -13,7 +13,7 @@ a.click()
 time.sleep(5)
 
 b = driver.find_element_by_xpath("/html/body/div[2]/div[3]/div[2]/div[4]/div[4]/div[2]/div[2]/div[2]/div/div[3]/div[2]/div[5]/div/div/a[5]")
-#페이지 번호에 따라 get으로 불러들임
+#페이지 번호에 따라 get으로 불러들임.
 b.click()
 
 
